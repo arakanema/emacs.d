@@ -4,3 +4,5 @@ elpa/*
 server/*
 .DS_Store
 .mc-lists.el
+ac-comphist.dat
+

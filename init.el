@@ -87,6 +87,12 @@
 ;(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 ;(add-hook 'org-mode-hook 'turn-on-font-lock)
 
+;;; auto-complete
+(when (require 'auto-complete nil t)
+  (require 'auto-complete-config)
+  (global-auto-complete-mode t)
+  (add-to-list 'ac-modes 'org-mode))
+
 ;;; multiple-cursors
 (when (require 'multipe-cursors nil t)
   (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -126,7 +132,7 @@
 ;;;;;;;;;;;;;;;;;;
 ;| fjiojao            | jfoisafjoaf |
 ;|--------------------+-------------|
-;| 日本語を入れてみる | ダメか...   |
+;| 日本語を入れてみる | ＯＫ？...   |
 
 (when (memq window-system '(w32))
   (setq default-file-name-coding-system 'shift_jis)
