@@ -87,6 +87,10 @@
 ;(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 ;(add-hook 'org-mode-hook 'turn-on-font-lock)
 
+;;; calfw
+(when (require 'calfw nil t)
+  (require 'calfw-org))
+
 ;;; auto-complete
 (when (require 'auto-complete nil t)
   (require 'auto-complete-config)
@@ -147,5 +151,16 @@
     (set-fontset-font t 'japanese-jisx0213-1 jpfont)
     (set-fontset-font t 'japanese-jisx0213-2 jpfont)
     (set-fontset-font t '(#x0080 . #x024F) asciifont))
+  ;;; dired with Windows
+  (defun uenox-dired-winstart () 
+    "Type '[uenox-dired-winstart]': win-start the current line's file." 
+    (interactive) 
+    (if (eq major-mode 'dired-mode) 
+        (let ((fname (dired-get-filename))) 
+          (w32-shell-execute "open" fname) 
+          (message "win-started %s" fname)))) 
+  (add-hook 'dired-mode-hook 
+            (lambda () 
+              (define-key dired-mode-map "z" 'uenox-dired-winstart)))
   )
 
