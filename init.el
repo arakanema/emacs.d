@@ -6,11 +6,13 @@
 
 ;; package list ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  ample-theme        20141103.816 installed             Calm Dark Theme for Emacs
+;  auto-complete       20141111.... installed                        Auto Completion for GNU Emacs
 ;  async              20141001.151 installed             Asynchronous processing in Emacs
 ;  git-commit-mode    20141014.... installed             Major mode for editing git commit messages
 ;  git-rebase-mode    20140928.... installed             Major mode for editing git rebase files
 ;  helm               20141111.... installed             Helm is an Emacs incremental and narrowing framework
 ;  magit              20141104.647 installed             control Git from Emacs
+;  markdown-mode       20140914.... installed              Emacs Major mode for Markdown-formatted text files
 ;  multiple-cursors   20141026.503 installed             Multiple cursors for Emacs.
 ;  org                20141110     installed             Outline-based notes management and organizer
 ;  powerline          20140516.... installed             Rewrite of Powerline
@@ -122,23 +124,22 @@
 ;;;;;;;;;;;;;;;;;;
 ;;; for Windows ;;
 ;;;;;;;;;;;;;;;;;;
-(when (memq window-system '(win32))
+;| fjiojao            | jfoisafjoaf |
+;|--------------------+-------------|
+;| 日本語を入れてみる | ダメか...   |
+
+(when (memq window-system '(w32))
   (setq default-file-name-coding-system 'shift_jis)
-  (set-face-attribute 'default nil :family "Consolas" :height 100)
-  (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Meiryo"))
-  (setq face-font-rescale-alist '(("Meiryo" . 1.)))
-  ;;; IMEの設定
-  (setq default-input-method "W32-IME")
-  (setq-default w32-ime-mode-line-state-indicator "[Aa]")
-  (setq w32-ime-mode-line-state-indicator-list '("[Aa]" "[あ]" "[Aa]"))
-  (w32-ime-initialize)
-  ;; IMEのON/OFFでカーソルの色を変える
-  (set-cursor-color "black")
-  (add-hook 'input-method-activate-hook
-            (lambda() (set-cursor-color "darkred")))
-  (add-hook 'input-method-inactivate-hook
-            (lambda() (set-cursor-color "black")))
-  ;; バッファ切り替え時にIME状態を引き継ぐ
-  (setq w32-ime-buffer-switch-p nil)
+  (let* ((size 10)
+  (jpfont "MeiryoKe_Console")
+  (asciifont "Consolas")
+  (h (* size 10)))
+    (set-face-attribute 'default nil :family asciifont :height h)
+    (set-fontset-font t 'katakana-jisx0201 jpfont)
+    (set-fontset-font t 'japanese-jisx0208 jpfont)
+    (set-fontset-font t 'japanese-jisx0212 jpfont)
+    (set-fontset-font t 'japanese-jisx0213-1 jpfont)
+    (set-fontset-font t 'japanese-jisx0213-2 jpfont)
+    (set-fontset-font t '(#x0080 . #x024F) asciifont))
   )
 
